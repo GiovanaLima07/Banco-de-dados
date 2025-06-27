@@ -32,13 +32,13 @@ A proposta consiste em construir uma base de dados que represente todas as entid
 
 ### 📘 Modelo Conceitual
 
-![Modelo Conceitual](ecommerce.png)
+![Modelo Conceitual](Ecommerce.png)
 
 ---
 
 ### 🗃️ Modelo Lógico
 
-![Modelo Lógico](ecommerceLogico.png)
+![Modelo Lógico](EcommerceLogico.png)
 
 ---
 
