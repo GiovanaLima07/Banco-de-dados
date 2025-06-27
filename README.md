@@ -44,9 +44,9 @@ A proposta consiste em construir uma base de dados que represente todas as entid
 
 ## 💡 Ferramenta utilizada
 
-- 💻 **brModelo** (versão 3.2.0)
+- 💻 **brModelo**
 - 📁 Exportações dos modelos em PNG
-- ⚙️ Conversão automática do modelo lógico para o modelo físico (script SQL)
+- ⚙️ Conversão automática do modelo lógico para o modelo físico (SQL Server)
 
 
 
