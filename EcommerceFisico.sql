@@ -1,282 +1,250 @@
-/* EcommerceLogico: */
-
 CREATE TABLE ECommerce (
-    nomeEcommerce VARCHAR,
-    cnpjEcommerce VARCHAR,
-    telefoneEcommerce VARCHAR,
-    siteURLEcommerce VARCHAR,
-    sobreNosEcommerce VARCHAR,
-    politicaPrivacidadeEcommerce VARCHAR,
-    politicaTroceEcommerce VARCHAR,
-    horarioFuncionamentoEcommerce VARCHAR,
-    enderecoEcommerce VARCHAR,
-    emailEcommerce VARCHAR,
-    IdEcommerce INTEGER PRIMARY KEY,
+    nomeEcommerce VARCHAR(255),
+    cnpjEcommerce VARCHAR(18),
+    telefoneEcommerce VARCHAR(20),
+    siteURLEcommerce VARCHAR(255),
+    sobreNosEcommerce VARCHAR(MAX),
+    politicaPrivacidadeEcommerce VARCHAR(MAX),
+    politicaTroceEcommerce VARCHAR(MAX),
+    horarioFuncionamentoEcommerce VARCHAR(255),
+    enderecoEcommerce VARCHAR(255),
+    emailEcommerce VARCHAR(255),
+    IdEcommerce INT PRIMARY KEY,
     dataCadastroEcommerce DATE,
-    statusPlataformaEcommerce BOOLEAN,
-    fk_Produto_IdProduto INTEGER,
-    fk_Estoque_idEstoque INTEGER,
-    fk_Cliente_Pedido_idCliente INTEGER,
-    fk_Pagamento_idPagamento INTEGER
+    statusPlataformaEcommerce BIT,
+    fk_Produto_IdProduto INT,
+    fk_Estoque_idEstoque INT,
+    fk_Cliente_Pedido_idCliente INT,
+    fk_Cliente_Pedido_idPedido INT, -- Necessário para chave composta
+    fk_Pagamento_idPagamento INT
 );
 
 CREATE TABLE Produto (
-    IdProduto INTEGER PRIMARY KEY,
-    nomeProduto VARCHAR,
-    descricaoProduto VARCHAR,
-    precoUnitarioProduto DECIMAL,
-    precoDoFornecedorProduto DECIMAL,
-    quantidadeEmEstoqueProduto INTEGER,
-    categoriaProduto VARCHAR,
-    pesoProduto DECIMAL,
-    alturaProduto DECIMAL,
-    larguraProduto DECIMAL,
-    materiaProduto VARCHAR,
-    comprimentoProduto FLOAT,
+    IdProduto INT PRIMARY KEY,
+    nomeProduto VARCHAR(255),
+    descricaoProduto VARCHAR(MAX),
+    precoUnitarioProduto DECIMAL(10,2),
+    precoDoFornecedorProduto DECIMAL(10,2),
+    quantidadeEmEstoqueProduto INT,
+    categoriaProduto VARCHAR(255),
+    pesoProduto DECIMAL(10,2),
+    alturaProduto DECIMAL(10,2),
+    larguraProduto DECIMAL(10,2),
+    materiaProduto VARCHAR(255),
+    comprimentoProduto DECIMAL(10,2),
     dataCadastroProduto DATE,
-    codigoDeBarrasProduto VARCHAR,
-    marcaProduto VARCHAR,
-    statusProduto BOOLEAN,
-    quantidadeEstoque INTEGER
+    codigoDeBarrasProduto VARCHAR(50),
+    marcaProduto VARCHAR(255),
+    statusProduto BIT,
+    quantidadeEstoque INT
 );
 
 CREATE TABLE Fornecedor (
-    idFornecedor INTEGER PRIMARY KEY,
-    nomeFornecedor VARCHAR,
-    cnpjFornecedor VARCHAR,
-    telefoneFornecedor VARCHAR,
-    enderecoFornecedor VARCHAR,
-    tipoProdutoFornecedor VARCHAR,
-    emailFornecedor VARCHAR,
+    idFornecedor INT PRIMARY KEY,
+    nomeFornecedor VARCHAR(255),
+    cnpjFornecedor VARCHAR(18),
+    telefoneFornecedor VARCHAR(20),
+    enderecoFornecedor VARCHAR(255),
+    tipoProdutoFornecedor VARCHAR(255),
+    emailFornecedor VARCHAR(255),
     dataCadastroFornecedor DATE,
-    statusFornecedor BOOLEAN
+    statusFornecedor BIT
 );
 
 CREATE TABLE Funcionario (
-    nomeFuncionario VARCHAR,
-    telefoneFuncionario VARCHAR,
-    enderecoFuncionario VARCHAR,
-    senhaHashFuncionario VARCHAR,
-    cargoFuncionario VARCHAR,
-    cpfFuncionario VARCHAR,
-    loginFuncionario VARCHAR,
-    emailFuncionario VARCHAR,
-    idFuncionario INTEGER PRIMARY KEY,
-    salarioFuncionario DECIMAL,
+    nomeFuncionario VARCHAR(255),
+    telefoneFuncionario VARCHAR(20),
+    enderecoFuncionario VARCHAR(255),
+    senhaHashFuncionario VARCHAR(255),
+    cargoFuncionario VARCHAR(100),
+    cpfFuncionario VARCHAR(11),
+    loginFuncionario VARCHAR(100),
+    emailFuncionario VARCHAR(255),
+    idFuncionario INT PRIMARY KEY,
+    salarioFuncionario DECIMAL(10,2),
     dataAdmicionalFuncionario DATE,
-    statusFuncionario BOOLEAN,
-    fk_ECommerce_IdEcommerce INTEGER
+    statusFuncionario BIT,
+    fk_ECommerce_IdEcommerce INT
 );
 
 CREATE TABLE Estoque (
-    IdProduto INTEGER,
+    IdProduto INT,
     dataAtualizacaoEstoque DATE,
-    quantidadeDisponivelEstoque INTEGER,
-    idEstoque INTEGER PRIMARY KEY,
-    localizacaoEstoque VARCHAR,
-    quantidadeEstoque INTEGER,
-    minimoEstoque INTEGER,
-    maximoEstouque INTEGER,
-    fk_Produto_IdProduto INTEGER,
-    fk_Pedido_idPedido INTEGER
+    quantidadeDisponivelEstoque INT,
+    idEstoque INT PRIMARY KEY,
+    localizacaoEstoque VARCHAR(255),
+    quantidadeEstoque INT,
+    minimoEstoque INT,
+    maximoEstouque INT,
+    fk_Produto_IdProduto INT,
+    fk_Pedido_idPedido INT
 );
 
 CREATE TABLE Cliente_Pedido (
-    idCliente INTEGER,
-    telefoneCliente VARCHAR,
-    enderecoCliente VARCHAR,
-    enderecoEntrega VARCHAR,
-    loginCliente VARCHAR,
-    cpfCliente VARCHAR,
-    nomeCliente VARCHAR,
-    statusCliente BOOLEAN,
-    senhaHashCliente VARCHAR,
-    valorTotalPedido DECIMAL,
-    statusPedido BOOLEAN,
-    idProduto INTEGER,
-    IdEntrega INTEGER,
-    IdPagamento INTEGER,
-    quantidadeEstoque INTEGER,
-    idPedido INTEGER,
-    idCliente INTEGER,
+    idCliente INT,
+    telefoneCliente VARCHAR(20),
+    enderecoCliente VARCHAR(255),
+    enderecoEntrega VARCHAR(255),
+    loginCliente VARCHAR(100),
+    cpfCliente VARCHAR(11),
+    nomeCliente VARCHAR(255),
+    statusCliente BIT,
+    senhaHashCliente VARCHAR(255),
+    valorTotalPedido DECIMAL(10,2),
+    statusPedido BIT,
+    idProduto INT,
+    IdEntrega INT,
+    IdPagamento INT,
+    quantidadeEstoque INT,
+    idPedido INT,
     dataPedido DATE,
-    precoUnitarioProduto DECIMAL,
-    fk_Funcionario_idFuncionario INTEGER,
+    precoUnitarioProduto DECIMAL(10,2),
+    fk_Funcionario_idFuncionario INT,
     PRIMARY KEY (idCliente, idPedido)
 );
 
 CREATE TABLE Pagamento (
-    idPagamento INTEGER PRIMARY KEY,
-    IdPedido INTEGER,
-    tipoPagamento VARCHAR,
-    statusPagamento BOOLEAN,
+    idPagamento INT PRIMARY KEY,
+    IdPedido INT,
+    tipoPagamento VARCHAR(50),
+    statusPagamento BIT,
     dataPagamento DATE,
-    valorPagamento DECIMAL,
-    comprovantePagamento BLOB
+    valorPagamento DECIMAL(10,2),
+    comprovantePagamento VARBINARY(MAX)
 );
 
 CREATE TABLE Entrega (
-    idPedido INTEGER,
+    idPedido INT,
     dataEnvioEntrega DATE,
     dataFeitaEntrega DATE,
-    codigoRastreioEntrega VARCHAR,
-    statusEntrega BOOLEAN,
-    enderecoEntrega VARCHAR,
-    transpotadoraEntrega VARCHAR,
+    codigoRastreioEntrega VARCHAR(100),
+    statusEntrega BIT,
+    enderecoEntrega VARCHAR(255),
+    transpotadoraEntrega VARCHAR(255),
     dataPrevistaEntrega DATE,
-    idEntrega INTEGER PRIMARY KEY,
-    fk_Cliente_Pedido_idCliente INTEGER,
-    fk_Cliente_Pedido_idPedido INTEGER
+    idEntrega INT PRIMARY KEY,
+    fk_Cliente_Pedido_idCliente INT,
+    fk_Cliente_Pedido_idPedido INT
 );
 
+-- Tabelas associativas
 CREATE TABLE Fornecer (
-    fk_ECommerce_IdEcommerce INTEGER,
-    fk_Fornecedor_idFornecedor INTEGER
+    fk_ECommerce_IdEcommerce INT,
+    fk_Fornecedor_idFornecedor INT
 );
 
 CREATE TABLE Administrar (
-    fk_Estoque_idEstoque INTEGER,
-    fk_Funcionario_idFuncionario INTEGER
+    fk_Estoque_idEstoque INT,
+    fk_Funcionario_idFuncionario INT
 );
 
 CREATE TABLE Auxiliar (
-    fk_Cliente_Pedido_idCliente INTEGER,
-    fk_Funcionario_idFuncionario INTEGER
+    fk_Cliente_Pedido_idCliente INT,
+    fk_Cliente_Pedido_idPedido INT,
+    fk_Funcionario_idFuncionario INT
 );
 
 CREATE TABLE Pagar (
-    fk_Pagamento_idPagamento INTEGER,
-    fk_Cliente_Pedido_idCliente INTEGER
+    fk_Pagamento_idPagamento INT,
+    fk_Cliente_Pedido_idCliente INT,
+    fk_Cliente_Pedido_idPedido INT
 );
 
 CREATE TABLE Autorizar (
-    fk_Cliente_Pedido_idCliente INTEGER,
-    fk_Cliente_Pedido_idPedido INTEGER,
-    fk_Pagamento_idPagamento INTEGER
+    fk_Cliente_Pedido_idCliente INT,
+    fk_Cliente_Pedido_idPedido INT,
+    fk_Pagamento_idPagamento INT
 );
 
 CREATE TABLE Receber (
-    fk_Cliente_Pedido_idCliente INTEGER,
-    fk_Cliente_Pedido_idPedido INTEGER,
-    fk_Entrega_idEntrega INTEGER
+    fk_Cliente_Pedido_idCliente INT,
+    fk_Cliente_Pedido_idPedido INT,
+    fk_Entrega_idEntrega INT
 );
 
 CREATE TABLE ItensPedidos (
-    fk_Produto_IdProduto INTEGER,
-    fk_Cliente_Pedido_idCliente INTEGER,
-    fk_Cliente_Pedido_idPedido INTEGER
+    fk_Produto_IdProduto INT,
+    fk_Cliente_Pedido_idCliente INT,
+    fk_Cliente_Pedido_idPedido INT
 );
- 
-ALTER TABLE ECommerce ADD CONSTRAINT FK_ECommerce_2
+
+-- CHAVES ESTRANGEIRAS
+
+ALTER TABLE ECommerce ADD CONSTRAINT FK_ECommerce_Produto
+    FOREIGN KEY (fk_Produto_IdProduto) REFERENCES Produto (IdProduto);
+
+ALTER TABLE ECommerce ADD CONSTRAINT FK_ECommerce_Estoque
+    FOREIGN KEY (fk_Estoque_idEstoque) REFERENCES Estoque (idEstoque);
+
+ALTER TABLE ECommerce ADD CONSTRAINT FK_ECommerce_ClientePedido
+    FOREIGN KEY (fk_Cliente_Pedido_idCliente, fk_Cliente_Pedido_idPedido)
+    REFERENCES Cliente_Pedido (idCliente, idPedido);
+
+ALTER TABLE ECommerce ADD CONSTRAINT FK_ECommerce_Pagamento
+    FOREIGN KEY (fk_Pagamento_idPagamento) REFERENCES Pagamento (idPagamento);
+
+ALTER TABLE Funcionario ADD CONSTRAINT FK_Funcionario_ECommerce
+    FOREIGN KEY (fk_ECommerce_IdEcommerce) REFERENCES ECommerce (IdEcommerce);
+
+ALTER TABLE Estoque ADD CONSTRAINT FK_Estoque_Produto
+    FOREIGN KEY (fk_Produto_IdProduto) REFERENCES Produto (IdProduto);
+
+-- OBS: fk_Pedido_idPedido precisa de referência válida; ajustado para Cliente_Pedido
+ALTER TABLE Estoque ADD CONSTRAINT FK_Estoque_Pedido
+    FOREIGN KEY (fk_Pedido_idPedido) REFERENCES Cliente_Pedido (idPedido);
+
+ALTER TABLE Cliente_Pedido ADD CONSTRAINT FK_ClientePedido_Funcionario
+    FOREIGN KEY (fk_Funcionario_idFuncionario) REFERENCES Funcionario (idFuncionario);
+
+ALTER TABLE Entrega ADD CONSTRAINT FK_Entrega_ClientePedido
+    FOREIGN KEY (fk_Cliente_Pedido_idCliente, fk_Cliente_Pedido_idPedido)
+    REFERENCES Cliente_Pedido (idCliente, idPedido);
+
+ALTER TABLE Fornecer ADD CONSTRAINT FK_Fornecer_ECommerce
+    FOREIGN KEY (fk_ECommerce_IdEcommerce) REFERENCES ECommerce (IdEcommerce);
+
+ALTER TABLE Fornecer ADD CONSTRAINT FK_Fornecer_Fornecedor
+    FOREIGN KEY (fk_Fornecedor_idFornecedor) REFERENCES Fornecedor (idFornecedor);
+
+ALTER TABLE Administrar ADD CONSTRAINT FK_Administrar_Estoque
+    FOREIGN KEY (fk_Estoque_idEstoque) REFERENCES Estoque (idEstoque);
+
+ALTER TABLE Administrar ADD CONSTRAINT FK_Administrar_Funcionario
+    FOREIGN KEY (fk_Funcionario_idFuncionario) REFERENCES Funcionario (idFuncionario);
+
+ALTER TABLE Auxiliar ADD CONSTRAINT FK_Auxiliar_ClientePedido
+    FOREIGN KEY (fk_Cliente_Pedido_idCliente, fk_Cliente_Pedido_idPedido)
+    REFERENCES Cliente_Pedido (idCliente, idPedido);
+
+ALTER TABLE Auxiliar ADD CONSTRAINT FK_Auxiliar_Funcionario
+    FOREIGN KEY (fk_Funcionario_idFuncionario) REFERENCES Funcionario (idFuncionario);
+
+ALTER TABLE Pagar ADD CONSTRAINT FK_Pagar_Pagamento
+    FOREIGN KEY (fk_Pagamento_idPagamento) REFERENCES Pagamento (idPagamento);
+
+ALTER TABLE Pagar ADD CONSTRAINT FK_Pagar_ClientePedido
+    FOREIGN KEY (fk_Cliente_Pedido_idCliente, fk_Cliente_Pedido_idPedido)
+    REFERENCES Cliente_Pedido (idCliente, idPedido);
+
+ALTER TABLE Autorizar ADD CONSTRAINT FK_Autorizar_ClientePedido
+    FOREIGN KEY (fk_Cliente_Pedido_idCliente, fk_Cliente_Pedido_idPedido)
+    REFERENCES Cliente_Pedido (idCliente, idPedido);
+
+ALTER TABLE Autorizar ADD CONSTRAINT FK_Autorizar_Pagamento
+    FOREIGN KEY (fk_Pagamento_idPagamento) REFERENCES Pagamento (idPagamento);
+
+ALTER TABLE Receber ADD CONSTRAINT FK_Receber_ClientePedido
+    FOREIGN KEY (fk_Cliente_Pedido_idCliente, fk_Cliente_Pedido_idPedido)
+    REFERENCES Cliente_Pedido (idCliente, idPedido);
+
+ALTER TABLE Receber ADD CONSTRAINT FK_Receber_Entrega
+    FOREIGN KEY (fk_Entrega_idEntrega) REFERENCES Entrega (idEntrega);
+
+ALTER TABLE ItensPedidos ADD CONSTRAINT FK_ItensPedidos_Produto
     FOREIGN KEY (fk_Produto_IdProduto)
-    REFERENCES Produto (IdProduto)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE ECommerce ADD CONSTRAINT FK_ECommerce_3
-    FOREIGN KEY (fk_Estoque_idEstoque)
-    REFERENCES Estoque (idEstoque)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE ECommerce ADD CONSTRAINT FK_ECommerce_4
-    FOREIGN KEY (fk_Cliente_Pedido_idCliente, ???)
-    REFERENCES Cliente_Pedido (idCliente, ???)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE ECommerce ADD CONSTRAINT FK_ECommerce_5
-    FOREIGN KEY (fk_Pagamento_idPagamento)
-    REFERENCES Pagamento (idPagamento)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Funcionario ADD CONSTRAINT FK_Funcionario_2
-    FOREIGN KEY (fk_ECommerce_IdEcommerce)
-    REFERENCES ECommerce (IdEcommerce)
-    ON DELETE CASCADE;
- 
-ALTER TABLE Estoque ADD CONSTRAINT FK_Estoque_2
-    FOREIGN KEY (fk_Produto_IdProduto)
-    REFERENCES Produto (IdProduto)
-    ON DELETE CASCADE;
- 
-ALTER TABLE Estoque ADD CONSTRAINT FK_Estoque_3
-    FOREIGN KEY (fk_Pedido_idPedido)
-    REFERENCES ??? (???);
- 
-ALTER TABLE Cliente_Pedido ADD CONSTRAINT FK_Cliente_Pedido_2
-    FOREIGN KEY (fk_Funcionario_idFuncionario)
-    REFERENCES Funcionario (idFuncionario)
-    ON DELETE CASCADE;
- 
-ALTER TABLE Entrega ADD CONSTRAINT FK_Entrega_2
+    REFERENCES Produto (IdProduto);
+
+ALTER TABLE ItensPedidos ADD CONSTRAINT FK_ItensPedidos_ClientePedido
     FOREIGN KEY (fk_Cliente_Pedido_idCliente, fk_Cliente_Pedido_idPedido)
-    REFERENCES Cliente_Pedido (idCliente, idPedido)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Fornecer ADD CONSTRAINT FK_Fornecer_1
-    FOREIGN KEY (fk_ECommerce_IdEcommerce)
-    REFERENCES ECommerce (IdEcommerce)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Fornecer ADD CONSTRAINT FK_Fornecer_2
-    FOREIGN KEY (fk_Fornecedor_idFornecedor)
-    REFERENCES Fornecedor (idFornecedor)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Administrar ADD CONSTRAINT FK_Administrar_1
-    FOREIGN KEY (fk_Estoque_idEstoque)
-    REFERENCES Estoque (idEstoque)
-    ON DELETE SET NULL;
- 
-ALTER TABLE Administrar ADD CONSTRAINT FK_Administrar_2
-    FOREIGN KEY (fk_Funcionario_idFuncionario)
-    REFERENCES Funcionario (idFuncionario)
-    ON DELETE SET NULL;
- 
-ALTER TABLE Auxiliar ADD CONSTRAINT FK_Auxiliar_1
-    FOREIGN KEY (fk_Cliente_Pedido_idCliente, ???)
-    REFERENCES Cliente_Pedido (idCliente, ???)
-    ON DELETE SET NULL;
- 
-ALTER TABLE Auxiliar ADD CONSTRAINT FK_Auxiliar_2
-    FOREIGN KEY (fk_Funcionario_idFuncionario)
-    REFERENCES Funcionario (idFuncionario)
-    ON DELETE SET NULL;
- 
-ALTER TABLE Pagar ADD CONSTRAINT FK_Pagar_1
-    FOREIGN KEY (fk_Pagamento_idPagamento)
-    REFERENCES Pagamento (idPagamento)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Pagar ADD CONSTRAINT FK_Pagar_2
-    FOREIGN KEY (fk_Cliente_Pedido_idCliente, ???)
-    REFERENCES Cliente_Pedido (idCliente, ???)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Autorizar ADD CONSTRAINT FK_Autorizar_1
-    FOREIGN KEY (fk_Cliente_Pedido_idCliente, fk_Cliente_Pedido_idPedido)
-    REFERENCES Cliente_Pedido (idCliente, idPedido)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Autorizar ADD CONSTRAINT FK_Autorizar_2
-    FOREIGN KEY (fk_Pagamento_idPagamento)
-    REFERENCES Pagamento (idPagamento)
-    ON DELETE SET NULL;
- 
-ALTER TABLE Receber ADD CONSTRAINT FK_Receber_1
-    FOREIGN KEY (fk_Cliente_Pedido_idCliente, fk_Cliente_Pedido_idPedido)
-    REFERENCES Cliente_Pedido (idCliente, idPedido)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Receber ADD CONSTRAINT FK_Receber_2
-    FOREIGN KEY (fk_Entrega_idEntrega)
-    REFERENCES Entrega (idEntrega)
-    ON DELETE SET NULL;
- 
-ALTER TABLE ItensPedidos ADD CONSTRAINT FK_ItensPedidos_1
-    FOREIGN KEY (fk_Produto_IdProduto)
-    REFERENCES Produto (IdProduto)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE ItensPedidos ADD CONSTRAINT FK_ItensPedidos_2
-    FOREIGN KEY (fk_Cliente_Pedido_idCliente, fk_Cliente_Pedido_idPedido)
-    REFERENCES Cliente_Pedido (idCliente, idPedido)
-    ON DELETE RESTRICT;
+    REFERENCES Cliente_Pedido (idCliente, idPedido);
+
